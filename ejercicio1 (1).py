@@ -19,7 +19,7 @@ def biseccion(a, b, tol=1e-3, max_iter=100):
     if f(a) * f(b) >= 0:
         print("El método de bisección no es aplicable en el intervalo dado.")
         return None
-
+    
     iteraciones = []
     errores_abs = []
     errores_rel = []
@@ -27,13 +27,13 @@ def biseccion(a, b, tol=1e-3, max_iter=100):
     c_old = a  # Para calcular errores
 
     print("\nIteraciones del Método de Bisección:")
-    print("Iter |       a       |       b       |       c       |      f(c)      |     Error Abs     ")
-    print("-" * 90)
+    print("Iter |       a       |       b       |       c       |      f(c)      |     Error Abs     |   Error Rel   |  Error Cuadrático  ")
+    print("-" * 110)
 
     for i in range(max_iter):
         c = (a + b) / 2
         iteraciones.append(c)
-
+        
         error_abs = abs(c - c_old)
         error_rel = abs((c - c_old) / c) if c != 0 else 0
         error_cuad = error_abs**2
@@ -41,7 +41,7 @@ def biseccion(a, b, tol=1e-3, max_iter=100):
         errores_rel.append(error_rel)
         errores_cuad.append(error_cuad)
 
-        print(f"{i+1:4d} | {a:.8f} | {b:.8f} | {c:.8f} | {f(c):.8f} | {error_abs:.8e}")
+        print(f"{i+1:4d} | {a:.8f} | {b:.8f} | {c:.8f} | {f(c):.8f} | {error_abs:.8e} | {error_rel:.8e} | {error_cuad:.8e}")
 
         if abs(f(c)) < tol or error_abs < tol:
             break
@@ -50,7 +50,7 @@ def biseccion(a, b, tol=1e-3, max_iter=100):
             b = c
         else:
             a = c
-
+        
         c_old = c
 
     return iteraciones, errores_abs, errores_rel, errores_cuad
